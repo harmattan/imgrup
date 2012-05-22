@@ -1,0 +1,75 @@
+imgrup (0.0.6.8) unstable; urgency=low
+
+  * account plugin thanks to itsnotabigtrunk
+
+
+ -- ZogG <thezogg@gmail.com>  Sat, 13 Apr 2012 18:35:00 +0200
+
+
+imgrup (0.0.6.7) unstable; urgency=low
+
+  * multi-upload bug fixer
+
+
+ -- ZogG <thezogg@gmail.com>  Sat, 20 Mar 2012 23:55:00 +0200
+imgrup (0.0.6.7) unstable; urgency=low
+
+  * gif fixer
+
+
+ -- ZogG <thezogg@gmail.com>  Sat, 04 Feb 2012 19:50:00 +0200
+imgrup (0.0.6.5) unstable; urgency=low
+
+  * comments separator
+  * upload indicator
+  * reddit custom button mockup
+  * network/speedup small improvements (thanks 2 MohammadAG, djszapi)
+
+ -- ZogG <thezogg@gmail.com>  Sat, 31 Jan 2012 22:36:00 +0200
+imgrup (0.0.6) unstable; urgency=low
+
+  * Gallery update
+
+ -- ZogG <thezogg@gmail.com>  Sat, 27 Jan 2012 15:54:00 +0200
+
+imgrup (0.0.5) unstable; urgency=low
+
+  * camera added
+  * some UI updates: header
+
+ -- ZogG <thezogg@gmail.com>  Sat, 21 Jan 2012 17:40:00 +0200
+
+imgrup (0.0.4.2) unstable; urgency=low
+
+  * fix that only *.jpgs were seen
+  * updated about dialog
+
+ -- ZogG <thezogg@gmail.com>  Sat, 08 Jan 2012 23:37:15 +0200
+
+imgrup (0.0.4) unstable; urgency=low
+
+  * basic gallery (hot) added
+
+ -- ZogG <thezogg@gmail.com>  Sat, 07 Jan 2012 00:55:00 +0200
+
+imgrup (0.0.3) unstable; urgency=low
+
+  * control buttons added.
+  * busy indiator wip
+  * orientation lock
+
+ -- ZogG <thezogg@gmail.com>  Sat, 17 Dec 2011 23:20:00 +0200
+
+imgrup (0.0.2) unstable; urgency=low
+
+  * port from curl to QNetwork.
+  * updated icon.
+
+ -- ZogG <thezogg@gmail.com>  Sat, 17 Dec 2011 20:37:00 +0200
+
+
+imgrup (0.0.1) unstable; urgency=low
+
+  * Initial Release.
+
+ -- ZogG <thezogg@gmail.com>  Fri, 09 Dec 2011 03:15:06 +0200
