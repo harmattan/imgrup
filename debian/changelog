@@ -1,0 +1,5 @@
+imgrup (0.0.0-1) unstable; urgency=low
+
+  * Initial release (Closes: #nnnn)  <nnnn is the bug number of your ITP>
+
+ -- Philippe Coval <rzr@gna.org>  Tue, 22 May 2012 18:42:10 +0200
