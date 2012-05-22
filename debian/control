@@ -1,0 +1,20 @@
+Source: imgrup
+Section: user/utilities
+Priority: extra
+Maintainer: Philippe Coval <rzr@gna.org>
+Build-Depends: debhelper (>= 8.0.0), pkg-config,
+  libqt4-dev,
+  libqt4-declarative-dev, libqtm-multimedia-dev, libqt4-multimedia,
+  libaccounts-qt-dev, libsignon-qt-dev, libsignon-glib-dev,
+  signon-plugins-dev, signond-dev, libaccountplugin-dev, libaccountsetup-dev, libnaccounts-ui-dev,
+  libmeegotouch-dev, meegotouch-qt-style-dev, applauncherd-dev
+Standards-Version: 3.9.2
+Homepage: http://talk.maemo.org/showthread.php?t=80822&highlight=imgrup
+Vcs-Git: git@github.com:harmattan/imgrup.git
+Vcs-Browser: https://github.com/harmattan/imgrup
+
+Package: imgrup
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: <insert up to 60 chars description>
+ <insert long description, indented with spaces>
