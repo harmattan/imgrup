@@ -13,4 +13,5 @@
 	dh $@ 
 
 override_dh_auto_clean:
+	rm -fv *.deb
 	-make clean

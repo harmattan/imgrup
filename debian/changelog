@@ -1,6 +1,13 @@
-imgrup (0.0.0-0) UNRELEASED; urgency=low
+imgrup (0.0.20120522-0~rzr1) harmattan; urgency=low
+
+  * http://rzr.online.fr/q/harmattan
+
+ -- Philippe Coval <rzr@gna.org>  Tue, 22 May 2012 20:07:37 +0200
+
+imgrup (0.0.0-1) UNRELEASED; urgency=low
 
   * 0.0.Z versions are for devel versions not suitable for release
   * http://rzr.online.fr/q/harmattan
+  * 
 
- -- Philippe Coval <rzr@gna.org>  Tue, 22 May 2012 18:42:10 +0200
+ -- Philippe Coval <rzr@gna.org>  Tue, 22 May 2012 20:07:37 +0200
