@@ -6,7 +6,7 @@ I wouldn't suggest packaging it and using it at this state, as account was added
 
 
 
-As well to use account you neec to chmod +x invoker script.
+As well to use account you need to "chmod +x" invoker script.
 
 
 
@@ -23,3 +23,6 @@ Redesign
 Account fully integration
 
 Adding share account and in from app share options
+
+Add COPYING AUTHORS file
+
