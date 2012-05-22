@@ -1,0 +1,2 @@
+#!/bin/sh
+exec /usr/bin/invoker --respawn=1 -w --type=m /usr/lib/AccountSetup/bin/imgurplugin "$@"

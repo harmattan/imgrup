@@ -1,0 +1,18 @@
+MWindowStyle {
+  x11-startup-pixmap:;
+  startup-fill-color: $COLOR_INVERTED_BACKGROUND;
+}
+
+MApplicationWindowStyle#AccountsUiWindow {
+  navigation-bar-style-name:"MNavigationBarStyleInverted";
+  tool-bar-style-name: "MToolBarStyleInverted";
+  tab-bar-style-name: "MToolbarTabStyleInverted"
+}
+
+#AccountsUiPage.Landscape {
+  background-image: "meegotouch-applicationpage-background-inverted";
+}
+
+#AccountsUiPage.Portrait {
+  background-image: "meegotouch-applicationpage-portrait-background-inverted";
+}
