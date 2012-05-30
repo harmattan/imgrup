@@ -4,7 +4,7 @@ SUBDIRS += src imgurplugin
 providers.path = $$system(pkg-config --variable=providerfilesdir accounts-qt)
 providers.files += providers/*
 
-icons.path = /usr/share/themes/base/meegotouch/icons
+icons.path = /usr/share/themes/base/meegotouch/icons/
 icons.files = icons/*
 
 stylesheets.path = /usr/share/themes/base/meegotouch/imgurplugin/style
