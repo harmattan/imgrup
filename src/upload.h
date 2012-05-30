@@ -16,10 +16,6 @@
 #include <QNetworkRequest>
 #include <QNetworkSession>
 #include <QApplication>
-#include <maemo-meegotouch-interfaces/shareuiinterface.h>
-#include <MDataUri>
-
-
 
 class Upload : public QObject
 {
@@ -33,7 +29,6 @@ public:
 
 
     Q_INVOKABLE void upload_request(QString filename);
-    Q_INVOKABLE void share_link(QString linktoshare);
 
 
 signals:

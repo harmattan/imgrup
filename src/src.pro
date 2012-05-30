@@ -42,7 +42,8 @@ LIBS += -lQtMultimediaKit
 # The .cpp file which was generated for your project. Feel free to hack it.
 SOURCES += main.cpp \
     upload.cpp \
-    gallery.cpp 
+    gallery.cpp \  
+    exttools.cpp
 
 # Please do not modify the following two lines. Required for deployment.
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
@@ -71,7 +72,8 @@ OTHER_FILES += qml/imgrup/About.qml \
 
 HEADERS += \
     upload.h \
-    gallery.h 
+    gallery.h \  
+    exttools.h
 
 
 

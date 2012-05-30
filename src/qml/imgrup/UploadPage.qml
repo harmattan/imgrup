@@ -95,7 +95,7 @@ Page {
              checkable: false
              enabled:(copylink.text==="")?false :true
              onClicked: {
-                          uploader.share_link(imglink.text);
+                          shareit.share_link(imglink.text);
              }
 
          }
