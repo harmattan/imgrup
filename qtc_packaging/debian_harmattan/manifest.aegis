@@ -7,7 +7,7 @@
     <credential name="UID::user" />
     <credential name="GRP::users" />
     <credential name="GRP::video" />
-    <credential name="GRP::pulse-accessi" />
+    <credential name="GRP::pulse-access" />
     <for path="/opt/imgrup/bin/imgrup" />
     <for path="/usr/lib/AccountSetup/bin/imgurplugin" />
     <for path="/usr/lib/AccountSetup/imgurplugin" />
