@@ -1,0 +1,15 @@
+<aegis>
+  <request>
+    <credential name="GID::users" />
+    <credential name="TrackerReadAccess" />
+    <credential name="TrackerWriteAccess" />
+    <credential name="GRP::metadata-users" />
+    <credential name="UID::user" />
+    <credential name="GRP::users" />
+    <credential name="GRP::video" />
+    <credential name="GRP::pulse-access" />
+    <for path="/opt/imgrup/bin/imgrup" />
+    <for path="/usr/lib/AccountSetup/bin/imgurplugin" />
+    <for path="/usr/lib/AccountSetup/imgurplugin" />
+  </request>
+</aegis>

@@ -1,0 +1,6 @@
+#!/bin/sh
+
+echo "Giving permissions for the account"
+chmod +x /usr/lib/AccountSetup/imgurplugin
+
+exit 0

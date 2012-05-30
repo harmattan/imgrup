@@ -26,4 +26,5 @@ OTHER_FILES +=  imgurplugin/invoker/imgurplugin \
     qtc_packaging/debian_harmattan/control \
     qtc_packaging/debian_harmattan/compat \
     qtc_packaging/debian_harmattan/changelog \
-    qtc_packaging/debian_harmattan/imgrup.install
+    qtc_packaging/debian_harmattan/imgrup.install \
+    qtc_packaging/debian_harmattan/postinst
