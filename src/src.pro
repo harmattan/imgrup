@@ -20,7 +20,12 @@ QT += network
 # Speed up launching on MeeGo/Harmattan when using applauncherd daemon
 CONFIG += qdeclarative-boostable  \
           link_pkgconfig  \
-          mobility
+          mobility \
+          shareuiinterface-maemo-meegotouch \
+          share-ui-plugin \
+          share-ui-common \
+          mdatauri
+
 PKGCONFIG += libsignon-qt \
              signon-plugins\
              signon-oauth2plugin \

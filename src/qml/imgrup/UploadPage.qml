@@ -92,8 +92,12 @@ Page {
          Button{
              id:share
              text:"share"
-             enabled:false
              checkable: false
+             enabled:(copylink.text==="")?false :true
+             onClicked: {
+                          uploader.share_link(imglink.text);
+             }
+
          }
      }
 
