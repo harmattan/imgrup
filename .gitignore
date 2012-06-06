@@ -4,3 +4,7 @@ src/imgrup.pro.user
 Makefile
 debian/imgrup.debhelper.log
 MANIFEST
+scr/moc*
+scr/*.o
+imgurplugin/moc*
+imgurplugin/*.o
