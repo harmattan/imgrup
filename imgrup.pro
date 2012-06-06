@@ -1,5 +1,6 @@
 TEMPLATE = subdirs
-SUBDIRS += src imgurplugin
+SUBDIRS += src \
+           imgurplugin
 
 providers.path = $$system(pkg-config --variable=providerfilesdir accounts-qt)
 providers.files += providers/*

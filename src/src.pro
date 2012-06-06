@@ -51,8 +51,8 @@ qtcAddDeployment()
 
 #TEMPLATE = subdirs
 
-RESOURCES += \
-     imgrup.qrc
+RESOURCES +=
+
 
 
 
@@ -81,7 +81,9 @@ icons.files = imgrup80.png
 icons.path = /usr/share/icons/hicolor/80x80/apps/
 imgs.files = imgs/reddit.png
 imgs.path = /usr/share/imgrup
-INSTALLS += icons imgs
+desktopfile.files = imgrup_harmattan.desktop
+desktopfile.path = /usr/share/applications
+INSTALLS += target icons imgs desktopfile
 
 
 

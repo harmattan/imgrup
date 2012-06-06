@@ -16,10 +16,13 @@
 configure: configure-stamp
 configure-stamp:
 	dh_testdir
-	qmake PREFIX=/usr
+	##OBS qmake -project
+	##OBS qmake PREFIX=/usr
+
+
 
 	touch configure-stamp
-
+	#qmake -makefile
 
 build: build-stamp
 
@@ -27,7 +30,8 @@ build-stamp: configure-stamp
 	dh_testdir
 
 	# Add here commands to compile the package.
-	#$(MAKE)
+	#qmake -project
+	##OBS $(MAKE)
 	#docbook-to-man debian/imgrup.sgml > imgrup.1
 
 	touch $@
@@ -36,9 +40,8 @@ clean:
 	dh_testdir
 	dh_testroot
 	rm -f build-stamp configure-stamp
-
 	# Add here commands to clean up after the build process.
-	$(MAKE) clean
+	-$(MAKE) clean
 
 	dh_clean
 
@@ -49,7 +52,7 @@ install: build
 	dh_installdirs
 
 	# Add here commands to install the package into debian/imgrup.
-	$(MAKE) INSTALL_ROOT="/usr/src/packages/BUILD"/debian/imgrup install
+	$(MAKE) INSTALL_ROOT="$(CURDIR)"/debian/imgrup install
 
 
 # Build architecture-independent files here.
@@ -82,7 +85,7 @@ binary-arch: build install
 #	dh_perl
 #	dh_makeshlibs
 	dh_installdeb
-	dh_shlibdeps
+	##OBS dh_shlibdeps
 	dh_gencontrol
 	dh_md5sums
 	dh_builddeb
