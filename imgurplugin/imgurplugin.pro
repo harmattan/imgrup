@@ -14,7 +14,14 @@ CONFIG(debug){
 QT += xml declarative
 QT -= thread
 
-PKGCONFIG += accounts-qt AccountPlugin NAccountPlugin meegotouch libsignon-qt signon-plugins signon-oauth2plugin
+PKGCONFIG += accounts-qt AccountPlugin meegotouch \
+             libsignon-qt \
+             signon-plugins\
+             signon-oauth2plugin \
+             qdeclarative-boostable \
+             NAccountPlugin  \
+             accounts-qt \
+             AccountSetup gq-gconf libsignon-qt
 
 QMAKE_CXXFLAGS += -fPIC -fvisibility=hidden -fvisibility-inlines-hidden
 QMAKE_LFLAGS += -pie -rdynamic
