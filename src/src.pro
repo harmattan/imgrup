@@ -9,7 +9,7 @@ QML_IMPORT_PATH =
 
 
 TEMPLATE = app
-TARGET = imgrup
+TARGET = "imgrup"
 
 QT += network
 # If your application uses the Qt Mobility libraries, uncomment the following
@@ -32,7 +32,7 @@ PKGCONFIG += libsignon-qt \
              qdeclarative-boostable \
              NAccountPlugin  \
              accounts-qt \
-             signon-plugins AccountSetup gq-gconf libsignon-qt
+             signon-plugins AccountSetup gq-gconf
 
 MOBILITY = multimedia
 LIBS += -lQtMultimediaKit
@@ -82,7 +82,9 @@ icons.path = /usr/share/icons/hicolor/80x80/apps/
 imgs.files = imgs/reddit.png
 imgs.path = /usr/share/imgrup
 target.path = /opt/imgrup/bin
-INSTALLS += icons imgs target
+desktop.files = imgrup_harmattan.desktop
+desktop.path = /usr/share/applications
+INSTALLS += icons imgs desktop
 
 
 

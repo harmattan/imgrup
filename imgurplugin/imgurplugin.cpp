@@ -4,12 +4,8 @@
  * @date 2012
  */
 
-#include <QVariantMap>
-#include <Accounts/Account>
-#include <AccountsUI/AbstractAccountSetupContext>
-#include <AccountsUI/NGenericAccountSetupContext>
-#include <AccountsUI/ValidationData>
 #include "imgurplugin.h"
+
 using namespace Accounts;
 using namespace AccountsUI;
 

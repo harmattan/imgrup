@@ -2,12 +2,12 @@ Source: imgrup
 Section: user/other
 Priority: optional
 Maintainer: ZogG <thezogg@gmail.com>
-Build-Depends: debhelper (>= 8.0.0), pkg-config,
-  libqt4-dev,
-  libqt4-declarative-dev, libqtm-multimedia-dev, libqt4-multimedia,
-  libaccounts-qt-dev, libsignon-qt-dev, libsignon-glib-dev,
+Build-Depends: debhelper (>= 7.0.0),  libqt4-dev, pkg-config,
   signon-plugins-dev, signond-dev, libaccountplugin-dev, libaccountsetup-dev, libnaccounts-ui-dev,
-  libmeegotouch-dev, meegotouch-qt-style-dev, applauncherd-dev
+  libmeegotouch-dev, applauncherd-dev,
+  maemo-meegotouch-interfaces-dev, libmdatauri-dev,
+  libqt4-declarative-dev, libqtm-multimedia-dev, libqt4-multimedia,
+  libaccounts-qt-dev, libsignon-qt-dev, libsignon-glib-dev
 Standards-Version: 3.9.2
 Homepage: meego.com
 

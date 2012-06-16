@@ -7,8 +7,13 @@
 #ifndef _IMGURPLUGIN_H
 #define _IMGURPLUGIN_H
 
+#include <QVariantMap>
+
+
+#include <AccountsUI/NGenericAccountSetupContext>
+#include <AccountsUI/ValidationData>
 #include <QObject>
-#include <Accounts/Account>
+#include <accounts-qt/Accounts/Account>
 #include <AccountsUI/AbstractAccountSetupContext>
 #include <AccountsUI/NProviderPluginProcess>
 #include <AccountsUI/ValidationData>

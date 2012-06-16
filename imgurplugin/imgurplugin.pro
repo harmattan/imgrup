@@ -1,10 +1,10 @@
 TEMPLATE = app
-TARGET = imgurplugin
+TARGET = "imgurplugin"
 
 CONFIG += qt link_pkgconfig warn_on \
           qdeclarative-boostable \
           qt-boostable \
-          meegotouch-boostable 
+          meegotouch-boostable signon-qt libsignon-qt
 #CONFIG += debug
 
 CONFIG(debug){
@@ -31,6 +31,22 @@ HEADERS = imgurplugin.h
 SOURCES = main.cpp \
           imgurplugin.cpp
 
+providers.path = $$system(pkg-config --variable=providerfilesdir accounts-qt)
+providers.files += providers/*
+
+icons.path = /usr/share/themes/base/meegotouch/icons/
+icons.files = ../icons/*
+
+stylesheets.path = /usr/share/themes/base/meegotouch/imgurplugin/style
+stylesheets.files = imgurplugin.css
+
+
+INSTALLS += providers icons stylesheets
+
+
+invoker.path = $$system(pkg-config --variable=providerplugindir AccountPlugin)
+invoker.files = invoker/imgurplugin
+INSTALLS += invoker
 
 
 target.path = /usr/lib/AccountSetup/bin
