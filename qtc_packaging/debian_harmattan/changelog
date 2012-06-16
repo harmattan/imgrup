@@ -1,9 +1,17 @@
+imgrup (0.0.6.8-2) unstable; urgency=low
+
+  *optimizing for apps4meego
+
+
+ -- ZogG <thezogg@gmail.com>  Sat, 6 Jun 2012 15:49:00 +0200
+
 imgrup (0.0.6.8) unstable; urgency=low
 
-  * account plugin thanks to itsnotabigtrunk
+  * added account plugin thanks to itsnotabigtrunk
+  * added share option of the url thru native share menu
 
 
- -- ZogG <thezogg@gmail.com>  Sat, 13 Apr 2012 18:35:00 +0200
+ -- ZogG <thezogg@gmail.com>  Sat, 30 May 2012 16:35:00 +0200
 
 
 imgrup (0.0.6.7) unstable; urgency=low

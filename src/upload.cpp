@@ -87,12 +87,8 @@ void Upload::upload_request(QString filename)
     QNetworkReply *reply = nam->post(QNetworkRequest(url), postdata);
     connect(reply, SIGNAL(uploadProgress(qint64,qint64)), this, SLOT(progresscalc(qint64,qint64)));
 
-
-
-
-
-
 }
+
 
 
 

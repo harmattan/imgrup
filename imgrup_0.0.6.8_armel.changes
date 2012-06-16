@@ -1,0 +1,24 @@
+Format: 1.8
+Date: Sat, 30 May 2012 16:35:00 +0200
+Source: imgrup
+Binary: imgrup
+Architecture: armel
+Version: 0.0.6.8
+Distribution: unstable
+Urgency: low
+Maintainer: ZogG <thezogg@gmail.com>
+Changed-By: ZogG <thezogg@gmail.com>
+Description: 
+ imgrup     - Imgrup - App for imgur.com
+Changes: 
+ imgrup (0.0.6.8) unstable; urgency=low
+ .
+   * added account plugin thanks to itsnotabigtrunk
+   * added share option of the url thru native share menu
+Checksums-Sha1: 
+ 298b2b5364764452d7fbf293757c2a595dad3644 46892 imgrup_0.0.6.8_armel.deb
+Checksums-Sha256: 
+ 8bdf8ef8e9df6b50a6e362a8ca7f787ea55024a0ec504556732a329be6bec3e2 46892 imgrup_0.0.6.8_armel.deb
+Files: 
+ 35ea1c0f2068119777556ebfbf7f3168 46892 user/internet optional imgrup_0.0.6.8_armel.deb
+Maemo-Display-Name: imgrup

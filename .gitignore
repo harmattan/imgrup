@@ -6,3 +6,10 @@ debian/imgrup.debhelper.log
 MANIFEST
 *~
 *.deb
+*.changes
+*.autosave
+scr/moc*
+scr/*.o
+imgurplugin/moc*
+imgurplugin/*.o
+

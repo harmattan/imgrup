@@ -1,0 +1,401 @@
+#!/usr/bin/perl
+#
+# mud2 - MeeGo Unified Distribution
+# ~~~~
+#
+# Help with packaging and distributing Maemo/MeeGo applications.
+#
+# Package a Qt Creator project into something suitable for sending to:
+#   * maemo.org Extras Autobuilder
+#   * meego.com Harmattan OBS
+#
+# Copyright (c) Andrew Flegg 2011. Released under the Artistic License.
+#               mailto:andrew@bleb.org
+# Copyright (c) Assaf Paz 2012. Released under the Artistic License.
+#               mailto:damagedspline@gmail.com
+
+use strict;
+use warnings;
+use Text::Wrap;
+use Cwd;
+
+$Text::Wrap::columns = 72;
+
+
+# -- Identify the project...
+#
+my @pros = <*.pro>;
+die "Found multiple .pro files in current directory\n" unless @pros == 1;
+
+my ($package) = $pros[0] =~ m!(.*)\.pro;
+my $debianPackage = $package;
+my $meegoPackage  = $package;
+
+open(IN, "<$pros[0]") or die "Unable to read $pros[0]\n";
+while (<IN>) {
+  chomp;
+  $debianPackage = lc($1) if /^\s*TARGET\s*=\s*([\w-]+)\s*$/;
+  $meegoPackage  = lc($1) if /^\s*PACKAGE\s*=\s*([\w\.-]+)\s*$/;
+}
+close(IN);
+
+# -- Target for the output...
+#
+my $dir = "../$package-build-mud";
+mkdir $dir;
+
+# -- What packaging is available...
+#
+my $pkgDebianFremantle = -d "qtc_packaging/debian_fremantle";
+my $pkgDebianHarmattan = -d "qtc_packaging/debian_harmattan";
+my $pkgDebianUbuntu    = -d "qtc_packaging/debian_ubuntu";
+my $pkgMeeGo           = 0;
+
+# -- Build source tarball...
+#
+
+# -- Build packages...
+#
+&createNativeDebian('ubuntu_oneiric');
+
+&createNativeDebian('ubuntu_precise');
+
+&createDebian('fremantle', '1.0', 0, sub {
+  my ($version) = @_;
+  &write('5', "$dir/fremantle/debian/compat");
+  system("tar", "cvzf", "$dir/fremantle/${package}_${version}.orig.tar.gz",
+                      "--exclude-vcs",
+                      "--exclude=qtc_packaging",
+                      ".",
+                      "-C", "$dir/fremantle",
+                      "debian");
+  # TODO Create as a patch
+}, 1) if $pkgDebianFremantle;
+
+&createDebian('harmattan', '3.0 (quilt)', 0, sub {
+  my ($version) = @_;
+  system("tar", "cvzf", "$dir/harmattan/${package}_${version}.debian.tar.gz",
+                        "-C", "$dir/harmattan",
+                        "--exclude-vcs",
+                        "debian");
+  system("tar", "cvzf", "$dir/harmattan/${package}_${version}.orig.tar.gz",
+                      "--exclude-vcs",
+                      "--exclude=debian",
+                      "--exclude=qtc_packaging",
+                      ".");
+}) if $pkgDebianHarmattan;
+
+&createSpec('meego', sub {
+  # TODO Unsupported
+}) if $pkgMeeGo;
+
+exit;
+
+
+# ===========================================================================
+# createSpec - Make the .spec file ready for RPM
+# ---------------------------------------------------------------------------
+sub createSpec {
+  my ($dist, $content) = @_;
+
+  &$content;
+}
+
+
+# ===========================================================================
+# createDebian - Clone the debian directory and resolve it ready for updates
+# ---------------------------------------------------------------------------
+sub createDebian {
+  my ($dist, $format, $is_signed, $content, $create_changes) = @_;
+
+  # -- Copy the source and rationalise the debian folder...
+  #
+  &createDist($dist);
+  system("cp", "-Lr", "qtc_packaging/debian_$dist", "$dir/$dist/debian");
+  mkdir "$dir/$dist/debian/source";
+  &write($format, "$dir/$dist/debian/source/format");
+
+  # -- Fix debian/rules...
+  #
+  my $rules = &read("$dir/$dist/debian/rules");
+  my $configureStamp = &readMakefile($rules, 'configure-stamp');
+  my $buildStamp = &readMakefile($rules, 'build-stamp');
+  my $clean = &readMakefile($rules, 'clean');
+
+  # Add qmake
+  unless ($rules =~ m!^\tqmake PREFIX=/usr$!m) {
+    $rules =~ s!^(configure-stamp:.*[\r\n]*\tdh_testdir\s*$)
+               !$1\n\tqmake PREFIX=/usr\n!xm;
+    print "+++ Adding qmake\n";
+  }
+
+  # Add $(MAKE)
+  unless ($buildStamp =~ /^\t\$\(MAKE\)\s*$/m) {
+    $rules =~ s!^(build-stamp:.*[\r\n]*\tdh_testdir\s*$)
+               !$1\n\t\$(MAKE)\n!xm;
+    print "+++ Adding make\n";
+  }
+
+  # Make it "-$(MAKE) clean" as the makefile won't exist at first
+  $rules =~ s/^\t(\$\(MAKE\)\s+clean\s*)$/\t-$1/mg and
+    print "+++ Fixing clean\n";
+
+  # Enable dh_shlibdeps
+  unless ($rules =~ /^\tdh_shlibdeps\s*$/m) {
+    $rules =~ s!^(\tdh_installdeb\s*$)
+               !$1\n\tdh_shlibdeps\n!xm;
+    print "+++ Adding dh_shlibdeps\n";
+  }
+
+  &write($rules, "$dir/$dist/debian/rules");
+
+  # -- Read control file
+  #
+  my $maintainer = "TBC <foo\@example.com>";
+  my $build_depends = "debhelper (>= 5), libqt4-dev";
+  my $description = "TBD";
+  my $control_file = "qtc_packaging/debian_$dist/control";
+  my $section = "";
+  my $priority = "";
+  my $homepage = "";
+  open(CONTROL_FILE, "<$control_file") or die "Unable to read $control_file\n";
+  while (<CONTROL_FILE>) {
+    chomp;
+    $section       = $1 if /^\s*Section\s*:\s*(.+)\s*$/;
+    $priority      = $1 if /^\s*Priority\s*:\s*(.+)\s*$/;
+    $maintainer    = $1 if /^\s*Maintainer\s*:\s*(.+)\s*$/;
+    $build_depends = $1 if /^\s*Build-Depends\s*:\s*(.+)\s*$/;
+    $description   = $1 if /^\s*Description\s*:\s*(.+)\s*$/;
+    $homepage      = $1 if /^\s*Homepage*:\s*(.+)\s*$/;
+  }
+  close(CONTROL_FILE);
+
+  # -- Read changelog file
+  #
+  my $changelog = "";
+  my $date = "";
+  my $changelog_file = "qtc_packaging/debian_$dist/changelog";
+  my $version = "";
+  my $distribution = "";
+  open(CHANGELOG_FILE, "<$changelog_file") or die "Unable to read $changelog_file\n";
+  while (<CHANGELOG_FILE>) {
+    chomp;
+
+    if ($version eq "" and /^[^(]+\(([^)]+)\)\s+([^;]+);/)
+    {
+       $version = $1;
+       $distribution = $2;
+       next;
+    }
+
+    $changelog .= "  ".$1."\n" if /^\s*(\*.+)\s*$/;
+    if (/^\s*--.+\s+((Sun|Mon|Tue|Wed|Thu|Fri|Sat),\s+.+)$/)
+    {
+       $date = $1;
+       last if /^\s*--/;
+    }
+  }
+  close(CHANGELOG_FILE);
+
+  # -- Execute custom content modifications...
+  #
+  &$content($version);
+
+  # -- Create the DSC file...
+  #
+  &mkDsc("$dir/$dist", $format, $version, $maintainer, $build_depends, $homepage, $is_signed);
+
+  # -- Create the .changes file...
+  #
+  $create_changes && &mkChanges("$dir/$dist", "${package}_${version}_any.changes", $version, $maintainer, $description, $date, $changelog, $distribution, $section, $priority, $is_signed);
+}
+
+sub createNativeDebian {
+  my ($dist) = @_;
+
+  # -- Read changelog file
+  #
+  my $changelog_file = "qtc_packaging/debian_$dist/changelog";
+  my $version = "";
+  open(CHANGELOG_FILE, "<$changelog_file") or die "Unable to read $changelog_file\n";
+  while (<CHANGELOG_FILE>) {
+    chomp;
+
+    if ($version eq "" and /^[^(]+\(([^)]+)\)\s+[^;]+;/)
+    {
+       $version = $1;
+       last;
+    }
+  }
+  close(CHANGELOG_FILE);
+
+  # -- Copy the source and rationalise the debian folder...
+  #
+  &createDist($dist);
+  my $cwd = getcwd;
+  system("cp", "-r", "$cwd", "$dir/$dist/$package-$version") == 0 or die "Failed to copy $cwd";
+  system("cp", "-r", "qtc_packaging/debian_$dist", "$dir/$dist/$package-$version/debian") == 0 or die "Failed to copy debian files";
+  chdir("$dir/$dist/$package-$version") or die "Failed to chdir to $dir/$dist/$package-$version";
+  my $rc = system("debuild", "-S");
+  chdir($cwd);
+  $rc == 0 or die "Failed to create package for $dist";
+}
+
+# ===========================================================================
+# createDist - Clone the source ready for packaging/distribution
+# ---------------------------------------------------------------------------
+sub createDist {
+  my ($dist) = @_;
+
+  system("rm", "-rf", "$dir/$dist");
+  mkdir "$dir/$dist";
+}
+
+
+# ===========================================================================
+# mkDsc - Create a Debian DSC file
+# ---------------------------------------------------------------------------
+sub mkDsc {
+  my ($dir, $format, $version, $maintainer, $build_depends, $homepage, $is_signed) = @_;
+  
+  my $dsc = "${package}_${version}.dsc";
+  open(DSC, ">$dir/$dsc.unsigned") or die "Unable to write $dir/$dsc: $!\n";
+  print DSC <<EOH;
+Format: $format
+Source: $debianPackage
+Binary: $debianPackage
+Architecture: any
+Version: $version
+Maintainer: $maintainer
+Homepage: $homepage
+Standards-Version: 3.7.3
+Build-Depends: $build_depends
+EOH
+
+  my $checksums = "Checksums-Sha1: \n";
+  my $checksums256 = "Checksums-Sha256: \n";
+  my $files     = "Files: \n";
+  foreach my $file (<$dir/*>) {
+    next unless -f $file && $file !~ /\.dsc(\.unsigned)*$/;
+
+    chomp(my $sha1 = `sha1sum "$file" | cut -d' ' -f1`);
+    chomp(my $sha256 = `sha256sum "$file" | cut -d' ' -f1`);
+    chomp(my $md5  = `md5sum "$file" | cut -d' ' -f1`);
+    my $size = -s $file;
+
+    $file =~ s!.*/([^/]+)$!$1!;
+    $checksums .= " $sha1 $size $file\n";
+    $checksums256 .= " $sha256 $size $file\n";
+    $files .= " $md5 $size $file\n";
+  }
+  print DSC $checksums;
+  print DSC $checksums256;
+  print DSC $files."\n";
+  close(DSC) or die "Unable to close $dir/$dsc: $!\n";
+
+  if ($is_signed)
+  {
+    `gpg --output $dir/$dsc --clearsign $dir/$dsc.unsigned`;
+    unlink "$dir/$dsc.unsigned";
+  }
+  else
+  {
+    rename "$dir/$dsc.unsigned", "$dir/$dsc"
+  }
+}
+
+# ===========================================================================
+# mkChanges - Create a Debian .changes file
+# ---------------------------------------------------------------------------
+sub mkChanges {
+  my ($dir, $changes, $version, $maintainer, $description, $date, $changelog, $distribution, $section, $priority, $is_signed) = @_;
+
+  open(CHANGES, ">$dir/$changes.unsigned") or die "Unable to write $dir/$changes: $!\n";
+  print CHANGES <<EOH;
+Format: 1.8
+Date: $date
+Source: $package
+Binary: $package
+Architecture: source
+Version: $version
+Distribution: $distribution
+Urgency: low
+Maintainer: $maintainer
+Changed-By: $maintainer
+Description: 
+ $package       - $description
+Changes: 
+ $package ($version) $distribution; urgency=low
+ .
+EOH
+
+  print CHANGES $changelog;
+  my $checksums = "Checksums-Sha1: \n";
+  my $checksums256 = "Checksums-Sha256: \n";
+  my $files     = "Files: \n";
+  foreach my $file (<$dir/*>) {
+    next unless -f $file && $file !~ /\.changes(\.unsigned)*$/;
+
+    chomp(my $sha1 = `sha1sum "$file" | cut -d' ' -f1`);
+    chomp(my $sha256 = `sha256sum "$file" | cut -d' ' -f1`);
+    chomp(my $md5  = `md5sum "$file" | cut -d' ' -f1`);
+    my $size = -s $file;
+
+    $file =~ s!.*/([^/]+)$!$1!;
+    $checksums .= " $sha1 $size $file\n";
+    $checksums256 .= " $sha256 $size $file\n";
+    $files .= " $md5 $size $section $priority $file\n";
+  }
+  print CHANGES $checksums;
+  print CHANGES $checksums256;
+  print CHANGES $files."\n";
+  close(CHANGES) or die "Unable to close $dir/$changes: $!\n";
+  if ($is_signed)
+  {
+    `gpg --output $dir/$changes --clearsign $dir/$changes.unsigned`;
+    unlink "$dir/$changes.unsigned";
+  }
+  else
+  {
+    rename "$dir/$changes.unsigned", "$dir/$changes"
+  }
+}
+
+
+# ===========================================================================
+# readMakefile - Read a specific target from a makefile
+# ---------------------------------------------------------------------------
+sub readMakefile {
+  my ($content, $target) = @_;
+
+  $content =~ /^(\Q$target\E:\s*.*?)^\w/sm;
+  return "$1\n";
+}
+
+
+# ===========================================================================
+# write - Write some content to a file, simply.
+# ---------------------------------------------------------------------------
+sub write {
+  my ($content, $file) = @_;
+
+  open(OUT, ">$file") or die "Unable to write to $file: $!\n";
+  print OUT $content;
+  close(OUT) or die "Unable to close $file: $!\n";
+}
+
+
+# ===========================================================================
+# read - Slurp all of a file in for processing
+# ---------------------------------------------------------------------------
+sub read {
+  my ($file) = @_;
+
+  my $content = '';
+  open(IN, "<$file") or die "Unable to open $file: $!\n";
+  while (<IN>) {
+    $content .= $_;
+  }
+
+  return $content;
+}

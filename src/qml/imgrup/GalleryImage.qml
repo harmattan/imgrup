@@ -222,6 +222,31 @@ Page {
                     }
                 }
 
+                BorderImage {
+                    id:sharewithme
+                    width:shareicon.width+2
+                    height: shareicon.height+2
+                        anchors.left: reddit.right
+                        anchors.top: points.bottom
+                        anchors.topMargin:15
+                        anchors.leftMargin: 15
+                    Image {
+                        id :shareicon
+                       // anchors.fill: parent
+
+                        source:"/usr/share/themes/blanco/meegotouch/icons/icon-m-toolbar-share.png"
+                        MouseArea{
+                            anchors.fill: parent
+                            onClicked: { shareit.share_link(imgururl);}
+
+                        }
+
+
+
+                    }
+                }
+
+
 
 
             }
