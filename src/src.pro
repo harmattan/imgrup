@@ -20,7 +20,12 @@ QT += network
 # Speed up launching on MeeGo/Harmattan when using applauncherd daemon
 CONFIG += qdeclarative-boostable  \
           link_pkgconfig  \
-          mobility
+          mobility \
+          shareuiinterface-maemo-meegotouch \
+          share-ui-plugin \
+          share-ui-common \
+          mdatauri
+
 PKGCONFIG += libsignon-qt \
              signon-plugins\
              signon-oauth2plugin \
@@ -37,7 +42,8 @@ LIBS += -lQtMultimediaKit
 # The .cpp file which was generated for your project. Feel free to hack it.
 SOURCES += main.cpp \
     upload.cpp \
-    gallery.cpp 
+    gallery.cpp \  
+    exttools.cpp
 
 # Please do not modify the following two lines. Required for deployment.
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
@@ -45,8 +51,8 @@ qtcAddDeployment()
 
 #TEMPLATE = subdirs
 
-RESOURCES += \
-     imgrup.qrc
+RESOURCES +=
+
 
 
 
@@ -66,7 +72,8 @@ OTHER_FILES += qml/imgrup/About.qml \
 
 HEADERS += \
     upload.h \
-    gallery.h 
+    gallery.h \  
+    exttools.h
 
 
 
@@ -74,7 +81,9 @@ icons.files = imgrup80.png
 icons.path = /usr/share/icons/hicolor/80x80/apps/
 imgs.files = imgs/reddit.png
 imgs.path = /usr/share/imgrup
-INSTALLS += icons imgs
+desktopfile.files = imgrup_harmattan.desktop
+desktopfile.path = /usr/share/applications
+INSTALLS += target icons imgs desktopfile
 
 
 

@@ -1,10 +1,15 @@
 Source: imgrup
-Section: user/other
+Section: user/internet
 Priority: optional
 Maintainer: ZogG <thezogg@gmail.com>
-Build-Depends: debhelper (>= 5), libqt4-dev
+Build-Depends: debhelper (>= 8.0.0), pkg-config,
+  libqt4-dev,
+  libqt4-declarative-dev, libqtm-multimedia-dev, libqt4-multimedia,
+  libaccounts-qt-dev, libsignon-qt-dev, libsignon-glib-dev,
+  signon-plugins-dev, signond-dev, libaccountplugin-dev, libaccountsetup-dev, libnaccounts-ui-dev,
+  libmeegotouch-dev
 Standards-Version: 3.7.3
-Homepage: meego.com
+Homepage: http://github.com/funkycode/imgrup
 
 Package: imgrup
 Architecture: any

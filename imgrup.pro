@@ -1,10 +1,11 @@
 TEMPLATE = subdirs
-SUBDIRS += src imgurplugin
+SUBDIRS += src \
+           imgurplugin
 
 providers.path = $$system(pkg-config --variable=providerfilesdir accounts-qt)
 providers.files += providers/*
 
-icons.path = /usr/share/themes/base/meegotouch/icons
+icons.path = /usr/share/themes/base/meegotouch/icons/
 icons.files = icons/*
 
 stylesheets.path = /usr/share/themes/base/meegotouch/imgurplugin/style
@@ -26,4 +27,5 @@ OTHER_FILES +=  imgurplugin/invoker/imgurplugin \
     qtc_packaging/debian_harmattan/control \
     qtc_packaging/debian_harmattan/compat \
     qtc_packaging/debian_harmattan/changelog \
-    qtc_packaging/debian_harmattan/imgrup.install
+    qtc_packaging/debian_harmattan/postinst \
+    qtc_packaging/debian_harmattan/install

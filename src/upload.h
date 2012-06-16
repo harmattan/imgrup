@@ -17,10 +17,6 @@
 #include <QNetworkSession>
 #include <QApplication>
 
-
-
-
-
 class Upload : public QObject
 {
     Q_OBJECT
@@ -33,7 +29,6 @@ public:
 
 
     Q_INVOKABLE void upload_request(QString filename);
-//    Q_INVOKABLE void auth_test();
 
 
 signals:
