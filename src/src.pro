@@ -32,7 +32,7 @@ PKGCONFIG += libsignon-qt \
              qdeclarative-boostable \
              NAccountPlugin  \
              accounts-qt \
-             signon-plugins
+             signon-plugins AccountSetup gq-gconf libsignon-qt
 
 MOBILITY = multimedia
 LIBS += -lQtMultimediaKit
@@ -51,8 +51,8 @@ qtcAddDeployment()
 
 #TEMPLATE = subdirs
 
-RESOURCES +=
-
+RESOURCES += \
+     imgrup.qrc
 
 
 
@@ -81,9 +81,8 @@ icons.files = imgrup80.png
 icons.path = /usr/share/icons/hicolor/80x80/apps/
 imgs.files = imgs/reddit.png
 imgs.path = /usr/share/imgrup
-desktopfile.files = imgrup_harmattan.desktop
-desktopfile.path = /usr/share/applications
-INSTALLS += target icons imgs desktopfile
+target.path = /opt/imgrup/bin
+INSTALLS += icons imgs target
 
 
 

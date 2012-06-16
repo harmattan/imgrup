@@ -54,7 +54,7 @@ void Tools::account_tokens(){
         Accounts::Account* account = m_manager.account(id);
 
 
-        if (account->providerName() == "twitter") {
+        if (account->providerName() == "imgur") {
             qDebug() << "Accounts found?";
             qDebug() << "    username =" << account->valueAsString("username");
             m_account = account;

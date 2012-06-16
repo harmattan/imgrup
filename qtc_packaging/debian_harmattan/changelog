@@ -1,9 +1,9 @@
-imgrup (0.0.6.8-2) unstable; urgency=low
+imgrup (0.0.6.9) unstable; urgency=low
 
-  *optimizing for apps4meego
+  * fixing back for qtcreator
 
 
- -- ZogG <thezogg@gmail.com>  Sat, 6 Jun 2012 15:49:00 +0200
+ -- ZogG <thezogg@gmail.com>  Sat, 15 Jun 2012 13:20:00 +0200
 
 imgrup (0.0.6.8) unstable; urgency=low
 

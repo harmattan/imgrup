@@ -1,6 +1,5 @@
 TEMPLATE = subdirs
-SUBDIRS += src \
-           imgurplugin
+SUBDIRS += src imgurplugin
 
 providers.path = $$system(pkg-config --variable=providerfilesdir accounts-qt)
 providers.files += providers/*
@@ -27,5 +26,5 @@ OTHER_FILES +=  imgurplugin/invoker/imgurplugin \
     qtc_packaging/debian_harmattan/control \
     qtc_packaging/debian_harmattan/compat \
     qtc_packaging/debian_harmattan/changelog \
-    qtc_packaging/debian_harmattan/postinst \
-    qtc_packaging/debian_harmattan/install
+    qtc_packaging/debian_harmattan/imgrup.install \
+    qtc_packaging/debian_harmattan/postinst
