@@ -12,4 +12,4 @@ scr/moc*
 scr/*.o
 imgurplugin/moc*
 imgurplugin/*.o
-
+src/imgrup
