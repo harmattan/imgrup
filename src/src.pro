@@ -23,7 +23,6 @@ CONFIG += qdeclarative-boostable  \
           mobility \
           shareuiinterface-maemo-meegotouch \
           share-ui-plugin \
-          share-ui-common \
           mdatauri
 
 PKGCONFIG += libsignon-qt \
