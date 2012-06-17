@@ -16,8 +16,9 @@
 configure: configure-stamp
 configure-stamp:
 	dh_testdir
-	##OBS qmake
-	##OBS qmake -project
+	qmake
+	###OBS qmake -project
+	###OBS qmake PREFIX=/opt
 
 
 	touch configure-stamp

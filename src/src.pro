@@ -51,8 +51,7 @@ qtcAddDeployment()
 
 #TEMPLATE = subdirs
 
-RESOURCES += \
-     imgrup.qrc
+RESOURCES +=
 
 
 
