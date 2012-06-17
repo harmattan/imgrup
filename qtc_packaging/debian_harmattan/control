@@ -1,5 +1,5 @@
 Source: imgrup
-Section: user/other
+Section: user/internet
 Priority: optional
 Maintainer: ZogG <thezogg@gmail.com>
 Build-Depends: debhelper (>= 8.0.0), libqt4-dev, pkg-config,
@@ -7,7 +7,7 @@ Build-Depends: debhelper (>= 8.0.0), libqt4-dev, pkg-config,
   libqtm-multimedia-dev, libqt4-multimedia, libaccounts-qt-dev, libsignon-qt-dev,
   libsignon-glib-dev, signon-plugins-dev, signond-dev, libaccountplugin-dev, libaccountsetup-dev,
   libnaccounts-ui-dev, libmeegotouch-dev, applauncherd-dev, maemo-meegotouch-interfaces-dev,
-  libmdatauri-dev, aegis-builder (>= 1.6)
+  libmdatauri-dev, aegis-builder
 Standards-Version: 3.9.2
 Homepage: meego.com
 
